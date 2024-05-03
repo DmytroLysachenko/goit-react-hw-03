@@ -21,12 +21,7 @@ export const ContactForm = ({ addContact }) => {
   const nameId = useId();
   const numberId = useId();
   const handleSubmit = (values) => {
-    console.log(values);
-    addContact((prev) => {
-      const contacts = [...prev, { id: nanoid(), ...values }];
-      window.localStorage.setItem("contacts", JSON.stringify(contacts));
-      return contacts;
-    });
+    addContact({ id: nanoid(), ...values });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from "./ContactList/ContactList";
 import { SearchBox } from "./SearchBox/SearchBox";
@@ -12,16 +12,30 @@ export const App = () => {
   ];
   const [contacts, setContacts] = useState(defaultValues);
   const [searchStr, setSearchStr] = useState("");
+  useEffect(() => {
+    window.localStorage.setItem("contacts", JSON.stringify(contacts));
+  });
+
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchStr)
   );
 
+  const addContact = (contact) => {
+    setContacts(() => [...contacts, contact]);
+  };
+
+  const deleteContact = (id) => {
+    setContacts((prev) => {
+      return prev.filter((item) => item.id !== id);
+    });
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm addContact={setContacts} />
+      <ContactForm addContact={addContact} />
       <SearchBox setSearchStr={setSearchStr} />
-      <ContactList contacts={filteredContacts} deleteContact={setContacts} />
+      <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
     </div>
   );
 };

@@ -13,3 +13,18 @@
   width: fit-content;
   padding: 5px 10px;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.text {
+  padding-left: 20px;
+  position: relative;
+  margin: 0;
+}
+.icon {
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
